@@ -1,0 +1,54 @@
+sql developter
+
+cdm - admin
+sqlplus 
+
+usename - sys as sysdba
+password : (패스워드 모르면 그냥 엔터, 그래도 커넥트는 됨). sys를 썻을 경우에만
+
+
+sql>startup (3스테이지 보여줄 것임-오라클 인스턴스 스타티드, 데이타베이스 마운티드, 데이터베이스 오픈드)
+
+(Initialization Parameter File - 이게 제일 먼저 실행됨)
+Pfile                                                    SPfile
+text                                                     Binary     (오라클은 바이나리 먼저 읽을것임)
+
+
+sql> show parameter Pfile or show parameter spfile
+
+(pfile 이나 spfile 을 보여줄것임, 경로도 보임)
+
+
+spq>create spfile from pfile;
+
+
+slq>shutdown immediate;
+
+
+
+컨트롤 파일은 8개까지 만들수 있음. 데이터 파일의 이름이랑 로케이션을 포함하고 있음. 
+
+
+3스텝스 : 이니셜라이즈, 컨트롤 파일, 데이터베이스 파일
+
+한명이라도 연결되어 있으면 연결이 끊기지 않음.
+
+한명이라도 트랜섹션 중이면 그를 위한 커넥션은 끊기지 않음.(transactional shutdown wait for the open transaction)
+트랜섹셔날 셧다운 
+
+
+메타데이터 : 모든 인터널 데이터  (오라클 데이터 딕셔나리)
+
+
+select * from dict;
+파일들 보여줄것임
+
+column table_name format a40
+column comments format a60
+set linesize 100
+
+
+select * from dict where table_name like'%tablespace%';
+
+
+(services -OracleserviceAcorcl - 실행되고 있는지 확인하는법)

@@ -1,0 +1,45 @@
+RMAN-Recovery Manager
+
+sys backup
+connect to RMAN
+
+RMAN - SQL query doesn't work on RMAN
+
+2 window required  1- sql          (better if use 2 different cmd window, one for sql, one for RMAN)
+                   1- RMAN
+
+Only table name is case sensitive.
+-----------------------------------------
+2-A : Login as SYS or SYSTEM
+SQL> ALTER USER sysbackup IDENTIFIED BY 1;
+SQL> ALTER USER sysbackup ACCOUNT UNLOCK;
+
+or
+
+SQL> ALTER USER sysbackup IDENTIFIED BY 1 ACCOUNT UNLOCK;
+
+NOw to connect with SYSBACKUP user : 
+SQL> CONN sysbackup/1 AS SYSBACKUP
+----------------------------------------------------------
+2-B :
+
+C:> RMAN TARGET sysbackup/1
+RMAN>
+
+---------------------------------------------------------
+2-C :
+SQL> SHOW PARAMETER RECOVERY; -- check the information listed.
+
+Now, you need to set the backup location folder(i.e. recovery_dest) and its size:
+
+SQL> alter system set db_recovery_file_dest_size = 10G;
+SQL> alter system set db_recovery_file_dest = ' Any location in your os';
+
+SQL> SHOW PARAMETER RECOVERY;  --verify that the new dest and size is set.
+
+
+2-V : When its time to restore your controlfile from backup, if the method specified
+      in lab document does not work, try this :
+RMAN> RESTORE CONTROLFILE FROM AUTOBACKUP;
+
+
