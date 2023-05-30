@@ -1,0 +1,14 @@
+LAB06
+
+google 
+alter flash
+
+EXPLAIN PLAN FOR 
+Select ee# 
+From lab6_parent 
+Where ee# = 123456;
+
+
+SELECT PLAN_TABLE_OUTPUT 
+FROM TABLE(DBMS_XPLAN.DISPLAY()); 
+

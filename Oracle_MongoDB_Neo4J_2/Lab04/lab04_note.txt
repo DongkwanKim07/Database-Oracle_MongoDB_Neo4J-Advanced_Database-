@@ -1,0 +1,35 @@
+
+To Create a User:
+As SYS user:
+
+SQL> CREATE USER khan
+     IDENTIFIED BY khanpwd
+     PASSWORD EXPIRE
+     DEFAULT TABLESPACE users 
+     QUOTA UNLIMITED on users
+
+
+     DEFAULT TEMPORARY TABLESPACE temp; (이 라인이 없어야 실행되네 ;;)
+
+
+To change the password(as SYS):
+
+SQL> ALTER USER khan IDENTIFIED BY orcl;
+
+
+--------------------
+DBA_PROFILES
+  - Kernel - Performance
+  - Password - Security
+
+--------------------------
+To know all privileges / permission of an user:
+SQL> SELECT * FROM SESSION_PRIVS;
+
+------------
+
+10 a) select * 
+        from role_tab_privs 
+        where role like 'ROLE%' 
+        order by role, table_name, privilege; 
+                                   (this from 11 (a) same result)

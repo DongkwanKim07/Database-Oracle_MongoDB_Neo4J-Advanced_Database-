@@ -1,0 +1,6 @@
+RECOVER TABLE SCOTT.STUDENTS
+    UNTIL TIME 'SYSDATE'
+    AUXILIARY DESTINATION '/oracle19cinstall/recover'
+    DATAPUMP DESTINATION '/oracle19cinstall/recover/dumpfiles'
+    DUMP FILE 'emp_dept_exp_dump.dat'
+    NOTABLEIMPORT;

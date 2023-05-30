@@ -1,0 +1,20 @@
+SQLPLUS Formatting : 
+
+Increase your Linesize (display width) from default 80 to 150 or 200 by:
+
+SQL> SHOW LINESIZE
+SQL> SET LINESIZE 200
+
+Then, for each column in your output, you can set a specific number for display
+characters:
+
+SQL> COLUMN name FORMAT a20;( Here, name is the column name and a 20 means 20 char)
+SQL> COLUMN vlaue FORMAT a20;
+SQL> COLUMN description FORMAT a60;
+
+------------------------------------------------------------------------------------------
+
+RMAN INCREMENT BACKUPS:
+
+RMAN> BACKUP INCREMENTAL LEVEL 0 TABLESPACE USERS;
+RMAN> BACKUP INCREMENTAL LEVEL 1 TABLESPACE USERS;
