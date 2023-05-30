@@ -1,0 +1,91 @@
+AUTO TRACE  (ANOTHER WAY TO EXCUSION PLAN)
+
+
+AUTO TRACE ON
+FIRST CREATE ROLE AND GRANT ROLE
+
+
+
+
+
+explain plan for
+select ename, dname from emp natural join dept;
+
+
+SELECT PLAN_TABLE_OUTPUT 
+FROM TABLE(DBMS_XPLAN.DISPLAY()); 
+
+
+
+-- from plustrc.sql file
+
+
+set echo on
+
+drop role plustrace;
+create role plustrace;
+
+grant select on v_$sesstat to plustrace;
+grant select on v_$statname to plustrace;
+grant select on v_$mystat to plustrace;
+grant plustrace to dba with admin option;
+
+set echo off
+
+만약 autotrace on 을 해 놓으면 
+
+explain plan for
+  이거를 포함할 필요가 없음.
+바로 
+select ename, dname from emp natural join dept;
+  
+이 select statement 를 입력하고 실행하면 됨.
+그러면 결과 값으로 select statement 결과를 보여주고, 그 아래에 explan 결과값도 보여줌.
+
+
+ 랩07 1.e
+select /*+ gather_plan_statistics */ ename, dname from emp natural join dept;
+
+select * from table(dbms_xplan.display_cursor(format =>'allstats last')); 
+
+
+/* In Lab 7 - 1e, login as SYS and grant the below privileges to SCOTT */
+GRANT SELECT ON V_$SESSION TO SCOTT;
+GRANT SELECT ON V_$SQL_PLAN_STATISTICS_ALL TO SCOTT;
+GRANT SELECT ON V_$SQL_PLAN TO SCOTT;
+GRANT SELECT ON V_$SQL TO SCOTT;
+
+SQL> SET LINESIZE 200  테이블의 라인 사이즈 변경하는 법.
+
+4_C 문제
+insert into t2 select 'king' from dual connect by level < 1000000;
+
+
+
+
+
+
+scott/tiger  가 connect 되지 않아서 다시 설정함. 
+
+SQL> conn sys as sysdba
+Enter password:
+Connected.
+SQL> conn scott/tiger
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn sys as sysdba
+Enter password:
+Connected.
+SQL> alter user scott identified by tiger;
+
+User altered.
+
+SQL> conn scott/tiger
+Connected.
+
+
+도중에 sysdba로 접속하는 방법.
+SQL> CONN SYS/SYS AS SYSDBA;

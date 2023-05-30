@@ -1,0 +1,40 @@
+mongoimport --db cst8276 --collection dongkwanFirstExample --file C:\Users\07rem\CST8276Mongo\lab08\sample3.json
+
+mongoimport --db CST8276 --collection stephanieFirstExample --file C:\Users\steph\Documents\AC4\Database\sample3.json
+
+mongoimport --db cst8276 --collection dongkwanFirstExample --file C:\Users\07rem\CST8276Mongo\lab08\sample3.json
+
+
+
+use CST8276;
+db.dongkwanFirstExample.insertMany([
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+]);
+
+
+db.dongkwanFirstExample.fine({Root.ExpenseItem.Amount : "200"})
+
+
+db.dongkwanFirstExample.aggregate([
+	{$match: {'ExpenseItem.Amount' : '200'}},
+	{$project: {
+		ExpenseItem: {$filter : {
+				input : '$ExpenseItem',
+				as : 'item',
+				cond: {$eq: ['$$item.Amount', '200']}
+		}},
+		_id: 0
+	}}
+])
+
+
+
+
+
+db.dongkwanFirstExample.aggregate([{$unwind:{path:"$Root.ExpenseItem"}},
+{$project : {"Root.EmployeeInfo.Date" : 0, "Root.EmployeeInfo.Code" : 0}},
+{$match: {"Root.ExpenseItem.Amount" : 200}} ]);
